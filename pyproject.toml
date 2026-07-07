@@ -1,0 +1,38 @@
+[project]
+name = "xsiam-mcp"
+version = "0.1.0"
+description = "Model Context Protocol server for the Palo Alto Cortex XSIAM REST API — full API coverage, auto-generated from the OpenAPI spec, optimized for AI agents. No Docker required."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Ced" }]
+keywords = ["mcp", "xsiam", "cortex", "palo-alto", "security", "soc", "xdr"]
+
+dependencies = [
+    "mcp>=1.2.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+]
+
+[project.scripts]
+xsiam-mcp = "xsiam_mcp.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xsiam_mcp"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/xsiam_mcp/data/openapi.json" = "xsiam_mcp/data/openapi.json"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
